@@ -11,7 +11,7 @@ const Vertical = (): JSX.Element => {
         if (e.key.includes("Arrow")) {
             // e.preventDefault();
             const currentSelection = editorState.getSelection();
-            console.log(JSON.stringify(currentSelection));
+            console.log(JSON.stringify(currentSelection, null, 4));
         }
         return getDefaultKeyBinding(e);
     };
