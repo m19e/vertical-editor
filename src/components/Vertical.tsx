@@ -64,7 +64,7 @@ const Vertical = (): JSX.Element => {
             <h1>Draft.js sample</h1>
             <Editor
                 editorState={editorState}
-                onChange={setEditorState}
+                onChange={onEditorChange}
                 keyBindingFn={handleArrow}
             />
         </div>
