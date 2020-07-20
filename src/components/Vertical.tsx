@@ -7,12 +7,6 @@ const Vertical = (): JSX.Element => {
         EditorState.createEmpty()
     );
     const initialSelection = editorState.getSelection();
-    const [selectionStateInputs, setSelectionStateInputs] = useState({
-        anchorOffset: initialSelection.getAnchorOffset(),
-        focusOffset: initialSelection.getFocusOffset(),
-        anchorKey: initialSelection.getAnchorKey(),
-        focusKey: initialSelection.getFocusKey(),
-    });
 
     const handleArrow = (e: React.KeyboardEvent) => {
         const selection = editorState.getSelection();
