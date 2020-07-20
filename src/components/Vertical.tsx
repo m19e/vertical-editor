@@ -25,7 +25,7 @@ const Vertical = (): JSX.Element => {
         let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
             JSON.stringify(selection)
         );
-        anchorOffset = anchorKey + d;
+        anchorOffset = anchorOffset + d;
         focusOffset = focusOffset + d;
         const newSelection = selection.merge({
             anchorOffset,
