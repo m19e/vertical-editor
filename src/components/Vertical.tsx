@@ -19,7 +19,10 @@ const Vertical = (): JSX.Element => {
         setEditorState(editor);
     };
 
-    const setSelectionState = (d: number) => {
+    const setSelectionState = (
+        d: number,
+        k: string = editorState.getSelection().getAnchorKey()
+    ) => {
         const selection = editorState.getSelection();
         // console.log(JSON.parse(JSON.stringify(selection)));
         let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
@@ -27,6 +30,8 @@ const Vertical = (): JSX.Element => {
         );
         anchorOffset = anchorOffset + d;
         focusOffset = focusOffset + d;
+        anchorKey = k;
+        focusKey = k;
         const newSelection = selection.merge({
             anchorOffset,
             focusOffset,
