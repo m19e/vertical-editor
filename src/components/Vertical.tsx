@@ -74,6 +74,28 @@ const Vertical = (): JSX.Element => {
         return getDefaultKeyBinding(e);
     };
 
+    const onEditorChange = (editor: EditorState) => {
+        setEditorState(editor);
+    };
+
+    const setSelectionState = (d: number) => {
+        const selection = editorState.getSelection();
+        console.log(JSON.parse(JSON.stringify(selection)));
+        let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
+            JSON.stringify(selection)
+        );
+        anchorOffset = anchorKey + d;
+        focusOffset = focusOffset + d;
+        const newSelection = selection.merge({
+            anchorOffset,
+            focusOffset,
+            anchorKey,
+            focusKey,
+        });
+        const newEditor = EditorState.forceSelection(editorState, newSelection);
+        onEditorChange(newEditor);
+    };
+
     return (
         <div className="tate">
             <h1>Draft.js sample</h1>
