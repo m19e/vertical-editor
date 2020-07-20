@@ -6,7 +6,6 @@ const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
-    const initialSelection = editorState.getSelection();
 
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
@@ -22,7 +21,7 @@ const Vertical = (): JSX.Element => {
 
     const setSelectionState = (d: number) => {
         const selection = editorState.getSelection();
-        console.log(JSON.parse(JSON.stringify(selection)));
+        // console.log(JSON.parse(JSON.stringify(selection)));
         let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
             JSON.stringify(selection)
         );
