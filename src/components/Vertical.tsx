@@ -10,7 +10,31 @@ const Vertical = (): JSX.Element => {
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
             e.preventDefault();
-            setSelectionState(e.key === "ArrowUp" ? -1 : 1);
+            const currentKey = editorState.getSelection().getAnchorKey();
+            switch (e.key) {
+                case "ArrowUp":
+                    setSelectionState(-1);
+                    break;
+                case "ArrowDown":
+                    setSelectionState(1);
+                    break;
+                case "ArrowRight":
+                    const before = editorState
+                        .getCurrentContent()
+                        .getKeyBefore(currentKey);
+                    if (!before) return "move-selection-to-start-of-block";
+                    setSelectionState(0, before);
+                    break;
+                case "ArrowLeft":
+                    const after = editorState
+                        .getCurrentContent()
+                        .getKeyAfter(currentKey);
+                    if (!after) return "move-selection-to-end-of-block";
+                    setSelectionState(0, after);
+                    break;
+                default:
+                    break;
+            }
         }
         return getDefaultKeyBinding(e);
     };
