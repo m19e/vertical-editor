@@ -38,6 +38,27 @@ const Vertical = (): JSX.Element => {
         onEditorChange(newEditor);
     };
 
+    const hardControllSelection = (e: React.KeyboardEvent) => {
+        const ta = window.getSelection();
+        const start: number = ta?.anchorOffset || 0;
+        if (e.key === "ArrowUp") {
+            if (start - 1 < 0) return null;
+            ta?.setPosition(ta.anchorNode, start - 1);
+        }
+        if (e.key === "ArrowDown") {
+            if (start + 1 > (ta?.anchorNode?.textContent?.length || 0))
+                return null;
+            ta?.setPosition(ta.anchorNode, start + 1);
+        }
+        if (e.key === "ArrowRight") {
+            return "move-selection-to-start-of-block";
+        }
+        if (e.key === "ArrowLeft") {
+            return "move-selection-to-end-of-block";
+        }
+        console.log(JSON.stringify(window.getSelection()?.anchorOffset));
+    };
+
     return (
         <div className="tate">
             <h1>Draft.js sample</h1>
