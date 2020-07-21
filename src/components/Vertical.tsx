@@ -53,12 +53,11 @@ const Vertical = (): JSX.Element => {
         k: string = editorState.getSelection().getAnchorKey()
     ) => {
         const selection = editorState.getSelection();
-        // console.log(JSON.parse(JSON.stringify(selection)));
         let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
             JSON.stringify(selection)
         );
-        anchorOffset = anchorOffset + d;
-        focusOffset = focusOffset + d;
+        anchorOffset = d;
+        focusOffset = d;
         anchorKey = k;
         focusKey = k;
         const newSelection = selection.merge({
