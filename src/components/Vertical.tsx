@@ -11,31 +11,43 @@ const Vertical = (): JSX.Element => {
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
             e.preventDefault();
-            const currentKey = editorState.getSelection().getAnchorKey();
+            const currentSelection = editorState.getSelection();
+            const currentKey = currentSelection.getAnchorKey();
+            const currentContent = editorState.getCurrentContent();
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
-                    setSelectionState(-1);
+                    setSelectionState(currentSelection.getAnchorOffset() - 1);
                     break;
                 case "ArrowDown":
                     setArrow("↓");
-                    setSelectionState(1);
+                    setSelectionState(currentSelection.getAnchorOffset() + 1);
                     break;
                 case "ArrowRight":
                     setArrow("→");
-                    const before = editorState
-                        .getCurrentContent()
-                        .getKeyBefore(currentKey);
-                    if (!before) return "move-selection-to-start-of-block";
-                    setSelectionState(0, before);
+                    const beforeKey = currentContent.getKeyBefore(currentKey);
+                    if (!beforeKey) return "move-selection-to-start-of-block";
+                    const beforeLen = currentContent
+                        .getBlockForKey(beforeKey)
+                        .getLength();
+                    const beforeOffset =
+                        beforeLen < currentSelection.getAnchorOffset()
+                            ? beforeLen
+                            : currentSelection.getAnchorOffset();
+                    setSelectionState(beforeOffset, beforeKey);
                     break;
                 case "ArrowLeft":
                     setArrow("←");
-                    const after = editorState
-                        .getCurrentContent()
-                        .getKeyAfter(currentKey);
-                    if (!after) return "move-selection-to-end-of-block";
-                    setSelectionState(0, after);
+                    const afterKey = currentContent.getKeyAfter(currentKey);
+                    if (!afterKey) return "move-selection-to-end-of-block";
+                    const afterLen = currentContent
+                        .getBlockForKey(afterKey)
+                        .getLength();
+                    const afterOffset =
+                        afterLen < currentSelection.getAnchorOffset()
+                            ? afterLen
+                            : currentSelection.getAnchorOffset();
+                    setSelectionState(afterOffset, afterKey);
                     break;
                 default:
                     break;
