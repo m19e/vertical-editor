@@ -3,3 +3,7 @@
     margin-top: 5vh;
     writing-mode: vertical-rl;
 }
+
+.ur {
+    text-orientation: upright;
+}

@@ -6,6 +6,7 @@ const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
+    const [arrow, setArrow] = useState("◇");
 
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
@@ -13,12 +14,15 @@ const Vertical = (): JSX.Element => {
             const currentKey = editorState.getSelection().getAnchorKey();
             switch (e.key) {
                 case "ArrowUp":
+                    setArrow("↑");
                     setSelectionState(-1);
                     break;
                 case "ArrowDown":
+                    setArrow("↓");
                     setSelectionState(1);
                     break;
                 case "ArrowRight":
+                    setArrow("→");
                     const before = editorState
                         .getCurrentContent()
                         .getKeyBefore(currentKey);
@@ -26,6 +30,7 @@ const Vertical = (): JSX.Element => {
                     setSelectionState(0, before);
                     break;
                 case "ArrowLeft":
+                    setArrow("←");
                     const after = editorState
                         .getCurrentContent()
                         .getKeyAfter(currentKey);
@@ -89,7 +94,7 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="tate">
-            <h1>Draft.js sample</h1>
+            <h1><span className="ur">{arrow}</span> Draft.js sample</h1>
             <Editor
                 editorState={editorState}
                 onChange={onEditorChange}
