@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Editor, EditorState, getDefaultKeyBinding } from "draft-js";
+import {
+    Editor,
+    EditorState,
+    getDefaultKeyBinding,
+    convertToRaw,
+} from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -9,20 +14,23 @@ const Vertical = (): JSX.Element => {
     const [arrow, setArrow] = useState("◇");
 
     const handleArrow = (e: React.KeyboardEvent) => {
+        // console.log(e.key);
+
+        const currentSelection = editorState.getSelection();
+        const currentKey = currentSelection.getAnchorKey();
+        const currentContent = editorState.getCurrentContent();
         if (e.key.includes("Arrow")) {
             e.preventDefault();
-            const currentSelection = editorState.getSelection();
-            const currentKey = currentSelection.getAnchorKey();
-            const currentContent = editorState.getCurrentContent();
+            // console.log(JSON.stringify(convertToRaw(currentContent), null, 4));
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
                     setSelectionState(currentSelection.getAnchorOffset() - 1);
-                    break;
+                    return null;
                 case "ArrowDown":
                     setArrow("↓");
                     setSelectionState(currentSelection.getAnchorOffset() + 1);
-                    break;
+                    return null;
                 case "ArrowRight":
                     setArrow("→");
                     const beforeKey = currentContent.getKeyBefore(currentKey);
@@ -35,7 +43,7 @@ const Vertical = (): JSX.Element => {
                             ? beforeLen
                             : currentSelection.getAnchorOffset();
                     setSelectionState(beforeOffset, beforeKey);
-                    break;
+                    return null;
                 case "ArrowLeft":
                     setArrow("←");
                     const afterKey = currentContent.getKeyAfter(currentKey);
@@ -48,10 +56,18 @@ const Vertical = (): JSX.Element => {
                             ? afterLen
                             : currentSelection.getAnchorOffset();
                     setSelectionState(afterOffset, afterKey);
-                    break;
+                    return null;
                 default:
                     break;
             }
+        }
+        if (
+            e.key !== "Backspace" &&
+            currentContent.getBlockForKey(currentKey).getLength() > 15
+        ) {
+            console.log("fire");
+            setSelectionState(15, currentKey);
+            return "split-block";
         }
         return getDefaultKeyBinding(e);
     };
@@ -105,7 +121,9 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="tate">
-            <h1><span className="ur">{arrow}</span> Draft.js sample</h1>
+            <h1>
+                <span className="ur">{arrow}</span> Draft.js sample
+            </h1>
             <Editor
                 editorState={editorState}
                 onChange={onEditorChange}
