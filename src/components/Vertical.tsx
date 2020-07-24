@@ -25,10 +25,27 @@ const Vertical = (): JSX.Element => {
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
+                    if (currentSelection.getAnchorOffset() === 0) {
+                        const beforeKey = currentContent.getKeyBefore(
+                            currentKey
+                        );
+                        if (!beforeKey) return null;
+                        const beforeLen = currentContent
+                            .getBlockForKey(beforeKey)
+                            .getLength();
+                        setSelectionState(beforeLen, beforeKey);
+                        return null;
+                    }
                     setSelectionState(currentSelection.getAnchorOffset() - 1);
                     return null;
                 case "ArrowDown":
                     setArrow("↓");
+                    if (currentSelection.getAnchorOffset() === blockLen) {
+                        const afterKey = currentContent.getKeyAfter(currentKey);
+                        if (!afterKey) return null;
+                        setSelectionState(0, afterKey);
+                        return null;
+                    }
                     setSelectionState(currentSelection.getAnchorOffset() + 1);
                     return null;
                 case "ArrowRight":
