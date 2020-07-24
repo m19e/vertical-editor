@@ -93,7 +93,7 @@ const Vertical = (): JSX.Element => {
                     setArrow("←");
                     if (blockLen > 20) {
                         if (
-                            blockLen >
+                            blockLen >=
                             currentSelection.getAnchorOffset() + 20
                         ) {
                             setSelectionState(
