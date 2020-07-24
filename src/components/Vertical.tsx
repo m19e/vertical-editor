@@ -17,6 +17,7 @@ const Vertical = (): JSX.Element => {
         const currentSelection = editorState.getSelection();
         const currentKey = currentSelection.getAnchorKey();
         const currentContent = editorState.getCurrentContent();
+        const blockLen = currentContent.getBlockForKey(currentKey).getLength();
         if (e.key.includes("Arrow")) {
             e.preventDefault();
             // console.log(JSON.stringify(convertToRaw(currentContent), null, 4));
@@ -31,6 +32,34 @@ const Vertical = (): JSX.Element => {
                     return null;
                 case "ArrowRight":
                     setArrow("→");
+                    if (blockLen > 20) {
+                        if (currentSelection.getAnchorOffset() - 20 > 0) {
+                            setSelectionState(
+                                currentSelection.getAnchorOffset() - 20,
+                                currentKey
+                            );
+                            return null;
+                        } else {
+                            // shift pre-block on caret as display anchoroffset
+                            const beforeKey = currentContent.getKeyBefore(
+                                currentKey
+                            );
+                            if (!beforeKey) {
+                                return "move-selection-to-start-of-block";
+                            }
+                            const beforeOffset =
+                                Math.floor(
+                                    currentContent
+                                        .getBlockForKey(beforeKey)
+                                        .getLength() / 20
+                                ) *
+                                    20 +
+                                (currentSelection.getAnchorOffset() % 20);
+                            setSelectionState(beforeOffset, beforeKey);
+                            return null;
+                        }
+                    }
+
                     const beforeKey = currentContent.getKeyBefore(currentKey);
                     if (!beforeKey) return "move-selection-to-start-of-block";
                     const beforeLen = currentContent
@@ -44,6 +73,31 @@ const Vertical = (): JSX.Element => {
                     return null;
                 case "ArrowLeft":
                     setArrow("←");
+                    if (blockLen > 20) {
+                        if (
+                            blockLen >
+                            currentSelection.getAnchorOffset() + 20
+                        ) {
+                            setSelectionState(
+                                currentSelection.getAnchorOffset() + 20,
+                                currentKey
+                            );
+                            return null;
+                        } else {
+                            // shift next-block on caret as display anchoroffset
+                            const afterKey = currentContent.getKeyAfter(
+                                currentKey
+                            );
+                            if (!afterKey)
+                                return "move-selection-to-end-of-block";
+
+                            setSelectionState(
+                                currentSelection.getAnchorOffset() % 20,
+                                afterKey
+                            );
+                            return null;
+                        }
+                    }
                     const afterKey = currentContent.getKeyAfter(currentKey);
                     if (!afterKey) return "move-selection-to-end-of-block";
                     const afterLen = currentContent
