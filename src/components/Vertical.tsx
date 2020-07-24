@@ -14,13 +14,14 @@ const Vertical = (): JSX.Element => {
     const [arrow, setArrow] = useState("◇");
 
     const handleArrow = (e: React.KeyboardEvent) => {
-        const currentSelection = editorState.getSelection();
-        const currentKey = currentSelection.getAnchorKey();
-        const currentContent = editorState.getCurrentContent();
-        const blockLen = currentContent.getBlockForKey(currentKey).getLength();
         if (e.key.includes("Arrow")) {
             e.preventDefault();
-            // console.log(JSON.stringify(convertToRaw(currentContent), null, 4));
+            const currentSelection = editorState.getSelection();
+            const currentKey = currentSelection.getAnchorKey();
+            const currentContent = editorState.getCurrentContent();
+            const blockLen = currentContent
+                .getBlockForKey(currentKey)
+                .getLength();
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
@@ -113,14 +114,6 @@ const Vertical = (): JSX.Element => {
                     break;
             }
         }
-        // if (
-        //     e.key !== "Backspace" &&
-        //     currentContent.getBlockForKey(currentKey).getLength() > 15
-        // ) {
-        //     console.log("fire");
-        //     setSelectionState(15, currentKey);
-        //     return "split-block";
-        // }
         return getDefaultKeyBinding(e);
     };
 
