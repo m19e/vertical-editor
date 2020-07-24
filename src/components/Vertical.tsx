@@ -13,6 +13,7 @@ const Vertical = (): JSX.Element => {
             e.preventDefault();
             const currentSelection = editorState.getSelection();
             const currentKey = currentSelection.getAnchorKey();
+            const currentOffset = currentSelection.getAnchorOffset();
             const currentContent = editorState.getCurrentContent();
             const blockLen = currentContent
                 .getBlockForKey(currentKey)
@@ -20,7 +21,7 @@ const Vertical = (): JSX.Element => {
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
-                    if (currentSelection.getAnchorOffset() === 0) {
+                    if (currentOffset === 0) {
                         const beforeKey = currentContent.getKeyBefore(
                             currentKey
                         );
@@ -31,21 +32,20 @@ const Vertical = (): JSX.Element => {
                         setSelectionState(beforeLen, beforeKey);
                         return null;
                     }
-                    setSelectionState(currentSelection.getAnchorOffset() - 1);
+                    setSelectionState(currentOffset - 1);
                     return null;
                 case "ArrowDown":
                     setArrow("↓");
-                    if (currentSelection.getAnchorOffset() === blockLen) {
+                    if (currentOffset === blockLen) {
                         const afterKey = currentContent.getKeyAfter(currentKey);
                         if (!afterKey) return null;
                         setSelectionState(0, afterKey);
                         return null;
                     }
-                    setSelectionState(currentSelection.getAnchorOffset() + 1);
+                    setSelectionState(currentOffset + 1);
                     return null;
                 case "ArrowRight":
                     setArrow("→");
-                    const currentOffset = currentSelection.getAnchorOffset();
                     if (currentOffset > 20) {
                         setSelectionState(currentOffset - 20, currentKey);
                         return null;
@@ -65,14 +65,8 @@ const Vertical = (): JSX.Element => {
                 case "ArrowLeft":
                     setArrow("←");
                     if (blockLen > 20) {
-                        if (
-                            blockLen >=
-                            currentSelection.getAnchorOffset() + 20
-                        ) {
-                            setSelectionState(
-                                currentSelection.getAnchorOffset() + 20,
-                                currentKey
-                            );
+                        if (blockLen >= currentOffset + 20) {
+                            setSelectionState(currentOffset + 20, currentKey);
                             return null;
                         } else {
                             // shift next-block on caret as display anchoroffset
@@ -82,10 +76,7 @@ const Vertical = (): JSX.Element => {
                             if (!afterKey)
                                 return "move-selection-to-end-of-block";
 
-                            setSelectionState(
-                                currentSelection.getAnchorOffset() % 20,
-                                afterKey
-                            );
+                            setSelectionState(currentOffset % 20, afterKey);
                             return null;
                         }
                     }
@@ -95,9 +86,7 @@ const Vertical = (): JSX.Element => {
                         .getBlockForKey(afterKey)
                         .getLength();
                     const afterOffset =
-                        afterLen < currentSelection.getAnchorOffset()
-                            ? afterLen
-                            : currentSelection.getAnchorOffset();
+                        afterLen < currentOffset ? afterLen : currentOffset;
                     setSelectionState(afterOffset, afterKey);
                     return null;
                 default:
