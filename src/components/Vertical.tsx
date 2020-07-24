@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-    Editor,
-    EditorState,
-    getDefaultKeyBinding,
-    convertToRaw,
-} from "draft-js";
+import { Editor, EditorState, getDefaultKeyBinding } from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -50,43 +45,21 @@ const Vertical = (): JSX.Element => {
                     return null;
                 case "ArrowRight":
                     setArrow("→");
-                    if (blockLen > 20) {
-                        if (currentSelection.getAnchorOffset() - 20 > 0) {
-                            setSelectionState(
-                                currentSelection.getAnchorOffset() - 20,
-                                currentKey
-                            );
-                            return null;
-                        } else {
-                            // shift pre-block on caret as display anchoroffset
-                            const beforeKey = currentContent.getKeyBefore(
-                                currentKey
-                            );
-                            if (!beforeKey) {
-                                return "move-selection-to-start-of-block";
-                            }
-                            const beforeOffset =
-                                Math.floor(
-                                    currentContent
-                                        .getBlockForKey(beforeKey)
-                                        .getLength() / 20
-                                ) *
-                                    20 +
-                                (currentSelection.getAnchorOffset() % 20);
-                            setSelectionState(beforeOffset, beforeKey);
-                            return null;
-                        }
+                    const currentOffset = currentSelection.getAnchorOffset();
+                    if (currentOffset > 20) {
+                        setSelectionState(currentOffset - 20, currentKey);
+                        return null;
                     }
-
+                    // shift pre-block on caret as display anchoroffset
                     const beforeKey = currentContent.getKeyBefore(currentKey);
                     if (!beforeKey) return "move-selection-to-start-of-block";
                     const beforeLen = currentContent
                         .getBlockForKey(beforeKey)
                         .getLength();
+                    const beforeTargetLine = Math.floor(beforeLen / 20) * 20;
                     const beforeOffset =
-                        beforeLen < currentSelection.getAnchorOffset()
-                            ? beforeLen
-                            : currentSelection.getAnchorOffset();
+                        beforeTargetLine +
+                        Math.min(currentOffset % 20, beforeLen % 20);
                     setSelectionState(beforeOffset, beforeKey);
                     return null;
                 case "ArrowLeft":
