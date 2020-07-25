@@ -3,9 +3,7 @@ import { Editor, EditorState, getDefaultKeyBinding } from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [arrow, setArrow] = useState("◇");
 
     const handleArrow = (e: React.KeyboardEvent) => {
@@ -15,20 +13,14 @@ const Vertical = (): JSX.Element => {
             const currentKey = currentSelection.getAnchorKey();
             const currentOffset = currentSelection.getAnchorOffset();
             const currentContent = editorState.getCurrentContent();
-            const blockLen = currentContent
-                .getBlockForKey(currentKey)
-                .getLength();
+            const blockLen = currentContent.getBlockForKey(currentKey).getLength();
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
                     if (currentOffset === 0) {
-                        const beforeKey = currentContent.getKeyBefore(
-                            currentKey
-                        );
+                        const beforeKey = currentContent.getKeyBefore(currentKey);
                         if (!beforeKey) return null;
-                        const beforeLen = currentContent
-                            .getBlockForKey(beforeKey)
-                            .getLength();
+                        const beforeLen = currentContent.getBlockForKey(beforeKey).getLength();
                         setSelectionState(beforeLen, beforeKey);
                         return null;
                     }
@@ -53,13 +45,9 @@ const Vertical = (): JSX.Element => {
                     // shift pre-block on caret as display anchoroffset
                     const beforeKey = currentContent.getKeyBefore(currentKey);
                     if (!beforeKey) return "move-selection-to-start-of-block";
-                    const beforeLen = currentContent
-                        .getBlockForKey(beforeKey)
-                        .getLength();
+                    const beforeLen = currentContent.getBlockForKey(beforeKey).getLength();
                     const beforeTargetLine = Math.floor(beforeLen / 20) * 20;
-                    const beforeOffset =
-                        beforeTargetLine +
-                        Math.min(currentOffset % 20, beforeLen % 20);
+                    const beforeOffset = beforeTargetLine + Math.min(currentOffset % 20, beforeLen % 20);
                     setSelectionState(beforeOffset, beforeKey);
                     return null;
                 case "ArrowLeft":
@@ -70,23 +58,16 @@ const Vertical = (): JSX.Element => {
                             return null;
                         } else {
                             // shift next-block on caret as display anchoroffset
-                            const afterKey = currentContent.getKeyAfter(
-                                currentKey
-                            );
-                            if (!afterKey)
-                                return "move-selection-to-end-of-block";
-
+                            const afterKey = currentContent.getKeyAfter(currentKey);
+                            if (!afterKey) return "move-selection-to-end-of-block";
                             setSelectionState(currentOffset % 20, afterKey);
                             return null;
                         }
                     }
                     const afterKey = currentContent.getKeyAfter(currentKey);
                     if (!afterKey) return "move-selection-to-end-of-block";
-                    const afterLen = currentContent
-                        .getBlockForKey(afterKey)
-                        .getLength();
-                    const afterOffset =
-                        afterLen < currentOffset ? afterLen : currentOffset;
+                    const afterLen = currentContent.getBlockForKey(afterKey).getLength();
+                    const afterOffset = afterLen < currentOffset ? afterLen : currentOffset;
                     setSelectionState(afterOffset, afterKey);
                     return null;
                 default:
@@ -100,14 +81,9 @@ const Vertical = (): JSX.Element => {
         setEditorState(editor);
     };
 
-    const setSelectionState = (
-        d: number,
-        k: string = editorState.getSelection().getAnchorKey()
-    ) => {
+    const setSelectionState = (d: number, k: string = editorState.getSelection().getAnchorKey()) => {
         const selection = editorState.getSelection();
-        let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(
-            JSON.stringify(selection)
-        );
+        let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(JSON.stringify(selection));
         anchorOffset = d;
         focusOffset = d;
         anchorKey = k;
@@ -130,8 +106,7 @@ const Vertical = (): JSX.Element => {
             ta?.setPosition(ta.anchorNode, start - 1);
         }
         if (e.key === "ArrowDown") {
-            if (start + 1 > (ta?.anchorNode?.textContent?.length || 0))
-                return null;
+            if (start + 1 > (ta?.anchorNode?.textContent?.length || 0)) return null;
             ta?.setPosition(ta.anchorNode, start + 1);
         }
         if (e.key === "ArrowRight") {
@@ -148,11 +123,7 @@ const Vertical = (): JSX.Element => {
             <h1>
                 <span className="ur">{arrow}</span> Draft.js sample
             </h1>
-            <Editor
-                editorState={editorState}
-                onChange={onEditorChange}
-                keyBindingFn={handleArrow}
-            />
+            <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
         </div>
     );
 };
