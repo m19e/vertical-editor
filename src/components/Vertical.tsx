@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor, EditorState, getDefaultKeyBinding } from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [arrow, setArrow] = useState("◇");
+
+    useEffect(() => {
+        const firstBlockKey = editorState.getSelection().getAnchorKey();
+        const firstBlockElement = document.querySelector(`span[data-offset-key="${firstBlockKey}-0-0"]`);
+
+        if (firstBlockElement) {
+            const blankBlock = firstBlockElement.removeChild(firstBlockElement.firstChild as Node);
+
+            // fixme: use insertAdjacentHTML
+            const insertElement = document.createElement("span");
+            insertElement.textContent = "あ".repeat(100);
+            insertElement.setAttribute("data-text", "true");
+            firstBlockElement.appendChild(insertElement);
+
+            const rect = document.querySelector(`span[data-offset-key="${firstBlockKey}-0-0"] > span`)?.getBoundingClientRect();
+            console.log(rect?.height, (rect?.height || 0) / 16);
+            firstBlockElement.firstChild?.remove();
+            firstBlockElement.appendChild(blankBlock);
+        }
+    }, []);
 
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
