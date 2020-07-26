@@ -12,16 +12,15 @@ const Vertical = (): JSX.Element => {
 
         if (firstBlockElement) {
             const blankBlock = firstBlockElement.removeChild(firstBlockElement.firstChild as Node);
-
-            // fixme: use insertAdjacentHTML
-            const insertElement = document.createElement("span");
-            insertElement.textContent = "あ".repeat(100);
-            insertElement.setAttribute("data-text", "true");
-            firstBlockElement.appendChild(insertElement);
-
-            const rect = document.querySelector(`span[data-offset-key="${firstBlockKey}-0-0"] > span`)?.getBoundingClientRect();
-            console.log(rect?.height, (rect?.height || 0) / 16);
-            firstBlockElement.firstChild?.remove();
+            firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="char" data-text="true">${"Ｖ"}</span>`);
+            const target = document.getElementById("target");
+            const charHeight = target?.getBoundingClientRect().height || 16;
+            firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="line" data-text="true">${"Ｖ".repeat(200)}</span>`);
+            const lineHeight = document.getElementById("line")?.getBoundingClientRect().height || 816;
+            console.log(`${lineHeight} / ${charHeight} =`, lineHeight / charHeight);
+            while (firstBlockElement.firstChild) {
+                firstBlockElement.firstChild.remove();
+            }
             firstBlockElement.appendChild(blankBlock);
         }
     }, []);
