@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Editor, EditorState, getDefaultKeyBinding } from "draft-js";
+import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -23,7 +23,16 @@ const Vertical = (): JSX.Element => {
             }
             firstBlockElement.appendChild(blankBlock);
         }
+
+        const loadDraft = localStorage.getItem("myDraft");
+        if (loadDraft) {
+            onEditorChange(EditorState.createWithContent(convertFromRaw(JSON.parse(loadDraft))));
+        }
     }, []);
+
+    const saveDraft = (editor: EditorState) => {
+        localStorage.setItem("myDraft", JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+    };
 
     const onEditorChange = (editor: EditorState) => {
         setEditorState(editor);
@@ -47,6 +56,12 @@ const Vertical = (): JSX.Element => {
     };
 
     const handleArrow = (e: React.KeyboardEvent) => {
+        if (e.ctrlKey === true && e.key === "s") {
+            e.preventDefault();
+            saveDraft(editorState);
+            return null;
+        }
+
         if (e.key.includes("Arrow")) {
             e.preventDefault();
             const currentSelection = editorState.getSelection();
