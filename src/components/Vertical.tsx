@@ -25,6 +25,27 @@ const Vertical = (): JSX.Element => {
         }
     }, []);
 
+    const onEditorChange = (editor: EditorState) => {
+        setEditorState(editor);
+    };
+
+    const setSelectionState = (d: number, k: string = editorState.getSelection().getAnchorKey()) => {
+        const selection = editorState.getSelection();
+        let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(JSON.stringify(selection));
+        anchorOffset = d;
+        focusOffset = d;
+        anchorKey = k;
+        focusKey = k;
+        const newSelection = selection.merge({
+            anchorOffset,
+            focusOffset,
+            anchorKey,
+            focusKey,
+        });
+        const newEditor = EditorState.forceSelection(editorState, newSelection);
+        onEditorChange(newEditor);
+    };
+
     const handleArrow = (e: React.KeyboardEvent) => {
         if (e.key.includes("Arrow")) {
             e.preventDefault();
@@ -94,27 +115,6 @@ const Vertical = (): JSX.Element => {
             }
         }
         return getDefaultKeyBinding(e);
-    };
-
-    const onEditorChange = (editor: EditorState) => {
-        setEditorState(editor);
-    };
-
-    const setSelectionState = (d: number, k: string = editorState.getSelection().getAnchorKey()) => {
-        const selection = editorState.getSelection();
-        let { anchorOffset, focusOffset, anchorKey, focusKey } = JSON.parse(JSON.stringify(selection));
-        anchorOffset = d;
-        focusOffset = d;
-        anchorKey = k;
-        focusKey = k;
-        const newSelection = selection.merge({
-            anchorOffset,
-            focusOffset,
-            anchorKey,
-            focusKey,
-        });
-        const newEditor = EditorState.forceSelection(editorState, newSelection);
-        onEditorChange(newEditor);
     };
 
     return (
