@@ -5,6 +5,7 @@ import "./Vertical.css";
 const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [arrow, setArrow] = useState("◇");
+    const [title, setTitle] = useState("タイトル");
 
     useEffect(() => {
         const firstBlockKey = editorState.getSelection().getAnchorKey();
@@ -26,12 +27,18 @@ const Vertical = (): JSX.Element => {
 
         const loadDraft = localStorage.getItem("myDraft");
         if (loadDraft) {
-            onEditorChange(EditorState.createWithContent(convertFromRaw(JSON.parse(loadDraft))));
+            const data = JSON.parse(loadDraft);
+            setTitle(data.title);
+            onEditorChange(EditorState.createWithContent(convertFromRaw(JSON.parse(data.body))));
         }
     }, []);
 
     const saveDraft = (editor: EditorState) => {
-        localStorage.setItem("myDraft", JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+        const draftData = {
+            title: title,
+            body: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        };
+        localStorage.setItem("myDraft", JSON.stringify(draftData));
     };
 
     const onEditorChange = (editor: EditorState) => {
@@ -156,7 +163,7 @@ const Vertical = (): JSX.Element => {
     return (
         <div className="tate">
             <h1>
-                <span className="ur">{arrow}</span> Draft.js sample
+                <span className="ur">{arrow}</span> {title}
             </h1>
             <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
         </div>
