@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
+import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw, Modifier } from "draft-js";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -68,7 +68,19 @@ const Vertical = (): JSX.Element => {
     };
 
     const handleArrow = (e: React.KeyboardEvent) => {
-        if (e.ctrlKey === true && e.key === "s") {
+        // console.log(e.key);
+        const currentSelection = editorState.getSelection();
+        const currentOffset = currentSelection.getAnchorOffset();
+        const currentContent = editorState.getCurrentContent();
+        if (e.key === "Tab") {
+            e.preventDefault();
+            setArrow("T");
+            const newEditor = EditorState.createWithContent(Modifier.insertText(currentContent, currentSelection, "　"));
+            onEditorChange(setSelectionWithEditor(newEditor, currentOffset + 1));
+            return null;
+        }
+
+        if (e.ctrlKey && e.key === "s") {
             e.preventDefault();
             saveDraft(editorState);
             return null;
@@ -76,10 +88,7 @@ const Vertical = (): JSX.Element => {
 
         if (e.key.includes("Arrow")) {
             e.preventDefault();
-            const currentSelection = editorState.getSelection();
             const currentKey = currentSelection.getAnchorKey();
-            const currentOffset = currentSelection.getAnchorOffset();
-            const currentContent = editorState.getCurrentContent();
             const blockLen = currentContent.getBlockForKey(currentKey).getLength();
             switch (e.key) {
                 case "ArrowUp":
