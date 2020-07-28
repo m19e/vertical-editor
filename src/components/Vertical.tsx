@@ -15,11 +15,13 @@ const Vertical = (): JSX.Element => {
         if (firstBlockElement) {
             const blankBlock = firstBlockElement.removeChild(firstBlockElement.firstChild as Node);
             firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="char" data-text="true">${"Ｖ"}</span>`);
-            const target = document.getElementById("target");
+            const target = document.getElementById("char");
             const charHeight = target?.getBoundingClientRect().height || 16;
             firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="line" data-text="true">${"Ｖ".repeat(200)}</span>`);
             const lineHeight = document.getElementById("line")?.getBoundingClientRect().height || 816;
-            setHeight(lineHeight / charHeight);
+            const h = Math.floor(lineHeight / charHeight);
+            setHeight(h);
+            console.log(`${lineHeight} / ${charHeight} = ${h}`);
             while (firstBlockElement.firstChild) {
                 firstBlockElement.firstChild.remove();
             }
@@ -95,6 +97,9 @@ const Vertical = (): JSX.Element => {
             const currentContent = editorState.getCurrentContent();
             const currentKey = currentSelection.getAnchorKey();
             const blockLen = currentContent.getBlockForKey(currentKey).getLength();
+
+            console.log(JSON.stringify(currentSelection, null, 4));
+
             switch (e.key) {
                 case "ArrowUp":
                     setArrow("↑");
