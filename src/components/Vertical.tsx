@@ -6,6 +6,7 @@ const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [arrow, setArrow] = useState("◇");
     const [title, setTitle] = useState("タイトル");
+    const [height, setHeight] = useState(20);
 
     useEffect(() => {
         const firstBlockKey = editorState.getSelection().getAnchorKey();
@@ -18,7 +19,7 @@ const Vertical = (): JSX.Element => {
             const charHeight = target?.getBoundingClientRect().height || 16;
             firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="line" data-text="true">${"Ｖ".repeat(200)}</span>`);
             const lineHeight = document.getElementById("line")?.getBoundingClientRect().height || 816;
-            console.log(`${lineHeight} / ${charHeight} =`, lineHeight / charHeight);
+            setHeight(lineHeight / charHeight);
             while (firstBlockElement.firstChild) {
                 firstBlockElement.firstChild.remove();
             }
@@ -121,29 +122,29 @@ const Vertical = (): JSX.Element => {
                     return null;
                 case "ArrowRight":
                     setArrow("→");
-                    if (currentOffset > 20) {
-                        setSelectionState(currentOffset - 20, currentKey);
+                    if (currentOffset > height) {
+                        setSelectionState(currentOffset - height, currentKey);
                         return null;
                     }
                     // shift pre-block on caret as display anchoroffset
                     const beforeKey = currentContent.getKeyBefore(currentKey);
                     if (!beforeKey) return "move-selection-to-start-of-block";
                     const beforeLen = currentContent.getBlockForKey(beforeKey).getLength();
-                    const beforeTargetLine = Math.floor(beforeLen / 20) * 20;
-                    const beforeOffset = beforeTargetLine + Math.min(currentOffset % 20, beforeLen % 20);
+                    const beforeTargetLine = Math.floor(beforeLen / height) * height;
+                    const beforeOffset = beforeTargetLine + Math.min(currentOffset % height, beforeLen % height);
                     setSelectionState(beforeOffset, beforeKey);
                     return null;
                 case "ArrowLeft":
                     setArrow("←");
-                    if (blockLen > 20) {
-                        if (blockLen >= currentOffset + 20) {
-                            setSelectionState(currentOffset + 20, currentKey);
+                    if (blockLen > height) {
+                        if (blockLen >= currentOffset + height) {
+                            setSelectionState(currentOffset + height, currentKey);
                             return null;
                         } else {
                             // shift next-block on caret as display anchoroffset
                             const afterKey = currentContent.getKeyAfter(currentKey);
                             if (!afterKey) return "move-selection-to-end-of-block";
-                            setSelectionState(currentOffset % 20, afterKey);
+                            setSelectionState(currentOffset % height, afterKey);
                             return null;
                         }
                     }
