@@ -145,8 +145,9 @@ const Vertical = (): JSX.Element => {
                         } else {
                             // shift next-block on caret as display anchoroffset
                             const afterKey = currentContent.getKeyAfter(currentKey);
+                            const afterLen = currentContent.getBlockForKey(afterKey).getLength();
                             if (!afterKey) return "move-selection-to-end-of-block";
-                            setSelectionState(currentOffset % height, afterKey);
+                            setSelectionState(Math.min(currentOffset % height, afterLen), afterKey);
                             return null;
                         }
                     }
