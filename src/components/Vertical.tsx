@@ -77,14 +77,8 @@ const Vertical = (): JSX.Element => {
 
     const handleArrow = (e: React.KeyboardEvent) => {
         // console.log(e.key);
-        const currentSelection = editorState.getSelection();
-        const currentOffset = currentSelection.getAnchorOffset();
-        const currentContent = editorState.getCurrentContent();
         if (e.key === "Tab") {
             e.preventDefault();
-            setArrow("T");
-            const newEditor = EditorState.createWithContent(Modifier.insertText(currentContent, currentSelection, "　"));
-            onEditorChange(setSelectionWithEditor(newEditor, currentOffset + 1));
             return null;
         }
 
@@ -96,6 +90,9 @@ const Vertical = (): JSX.Element => {
 
         if (e.key.includes("Arrow")) {
             e.preventDefault();
+            const currentSelection = editorState.getSelection();
+            const currentOffset = currentSelection.getAnchorOffset();
+            const currentContent = editorState.getCurrentContent();
             const currentKey = currentSelection.getAnchorKey();
             const blockLen = currentContent.getBlockForKey(currentKey).getLength();
             switch (e.key) {
