@@ -166,9 +166,7 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="tate">
-            <h1>
-                <span className="ur">{arrow}</span> {title}
-            </h1>
+            <h1>{title}</h1>
             <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
         </div>
     );
