@@ -46,6 +46,7 @@ const Vertical = (): JSX.Element => {
     };
 
     const onEditorChange = (editor: EditorState) => {
+        setTitle(editor.getCurrentContent().getBlockMap().first().getText().trim());
         setEditorState(editor);
     };
 
