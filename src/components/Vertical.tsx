@@ -167,9 +167,15 @@ const Vertical = (): JSX.Element => {
     };
 
     return (
-        <div className="tate">
-            <h1>{title}</h1>
-            <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
+        <div className="wrapper">
+            <header>
+                <h3 style={{ textAlign: "center", margin: "0 8px" }}>{title}</h3>
+            </header>
+            <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
+                <div className="tate">
+                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
+                </div>
+            </Scrollbars>
         </div>
     );
 };
