@@ -9,7 +9,7 @@
     margin: auto;
     margin-top: 5vh;
     writing-mode: vertical-rl;
-    /* text-align: justify; */
+    line-break: loose;
 }
 
 .ur {
