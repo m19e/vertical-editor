@@ -84,7 +84,7 @@ const Vertical = (): JSX.Element => {
         onEditorChange(newEditor);
     };
 
-    const handleArrow = (e: React.KeyboardEvent) => {
+    const handleKey = (e: React.KeyboardEvent) => {
         // console.log(e.key);
         if (e.key === "Tab") {
             e.preventDefault();
@@ -171,7 +171,7 @@ const Vertical = (): JSX.Element => {
         <div className="wrapper">
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
                 <div className="tate">
-                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleArrow} />
+                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
                 </div>
             </Scrollbars>
         </div>
