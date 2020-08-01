@@ -33,12 +33,25 @@ const Vertical = (): JSX.Element => {
         const loadDraft = localStorage.getItem("myDraft");
         if (loadDraft) {
             const data = JSON.parse(loadDraft);
+            const e = EditorState.createWithContent(convertFromRaw(JSON.parse(data.body)));
+            const t = e.getCurrentContent().getPlainText();
             setTitle(data.title);
-            onEditorChange(EditorState.createWithContent(convertFromRaw(JSON.parse(data.body))));
+            setText(t);
+            onEditorChange(e);
         }
     }, []);
 
+    const [isSaved, setIsSaved] = useState(true);
+    useEffect(() => {
+        document.title = (isSaved ? "" : "*") + title;
+    }, [title, isSaved]);
+
+    useEffect(() => {
+        setIsSaved(true);
+    }, []);
+
     const saveDraft = (editor: EditorState) => {
+        setIsSaved(true);
         const draftData = {
             title: title,
             body: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
@@ -47,6 +60,10 @@ const Vertical = (): JSX.Element => {
     };
 
     const onEditorChange = (editor: EditorState) => {
+        if (editor.getCurrentContent().getPlainText() !== text) {
+            setIsSaved(false);
+            setText(editor.getCurrentContent().getPlainText());
+        }
         setTitle(editor.getCurrentContent().getBlockMap().first().getText().trim());
         setEditorState(editor);
     };
