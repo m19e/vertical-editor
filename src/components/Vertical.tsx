@@ -8,6 +8,7 @@ const Vertical = (): JSX.Element => {
     const [arrow, setArrow] = useState("◇");
     const [title, setTitle] = useState("");
     const [height, setHeight] = useState(20);
+    const [text, setText] = useState("");
 
     useEffect(() => {
         const firstBlockKey = editorState.getSelection().getAnchorKey();
