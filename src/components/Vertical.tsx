@@ -84,18 +84,6 @@ const Vertical = (): JSX.Element => {
         onEditorChange(newEditor);
     };
 
-    const setSelectionWithEditor = (editor: EditorState, d: number): EditorState => {
-        const selection = editor.getSelection();
-        const anchorOffset = d;
-        const focusOffset = d;
-        const newSelection = selection.merge({
-            anchorOffset,
-            focusOffset,
-        });
-        const newEditor = EditorState.forceSelection(editor, newSelection);
-        return newEditor;
-    };
-
     const handleArrow = (e: React.KeyboardEvent) => {
         // console.log(e.key);
         if (e.key === "Tab") {
