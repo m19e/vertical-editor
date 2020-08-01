@@ -5,7 +5,6 @@ import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-    const [arrow, setArrow] = useState("◇");
     const [title, setTitle] = useState("");
     const [height, setHeight] = useState(20);
     const [text, setText] = useState("");
@@ -122,7 +121,6 @@ const Vertical = (): JSX.Element => {
 
             switch (e.key) {
                 case "ArrowUp":
-                    setArrow("↑");
                     if (currentOffset === 0) {
                         const beforeKey = currentContent.getKeyBefore(currentKey);
                         if (!beforeKey) return null;
@@ -133,7 +131,6 @@ const Vertical = (): JSX.Element => {
                     setSelectionState(currentOffset - 1);
                     return null;
                 case "ArrowDown":
-                    setArrow("↓");
                     if (currentOffset === blockLen) {
                         const afterKey = currentContent.getKeyAfter(currentKey);
                         if (!afterKey) return null;
@@ -143,7 +140,6 @@ const Vertical = (): JSX.Element => {
                     setSelectionState(currentOffset + 1);
                     return null;
                 case "ArrowRight":
-                    setArrow("→");
                     if (currentOffset > height) {
                         setSelectionState(currentOffset - height, currentKey);
                         return null;
@@ -157,7 +153,6 @@ const Vertical = (): JSX.Element => {
                     setSelectionState(beforeOffset, beforeKey);
                     return null;
                 case "ArrowLeft":
-                    setArrow("←");
                     if (blockLen > height) {
                         if (blockLen >= currentOffset + height) {
                             setSelectionState(currentOffset + height, currentKey);
