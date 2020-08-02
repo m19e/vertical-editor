@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw, Modifier } from "draft-js";
+import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Vertical.css";
 
