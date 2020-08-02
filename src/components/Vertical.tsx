@@ -191,11 +191,11 @@ const Vertical = (): JSX.Element => {
                         </Button>
                     </ButtonGroup>
                     <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small" variant="text">
+                        <Button size="small" variant="text" onClick={(e) => setFontSize(fontSize + 8)}>
                             <ExpandLess className="control" />
                         </Button>
-                        <span style={{ textAlign: "center" }}>文字サイズ {24}</span>
-                        <Button size="small" variant="text">
+                        <span style={{ textAlign: "center" }}>文字サイズ {fontSize}</span>
+                        <Button size="small" variant="text" onClick={(e) => setFontSize(fontSize - 8)}>
                             <ExpandMore className="control" />
                         </Button>
                     </ButtonGroup>
