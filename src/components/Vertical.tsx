@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -179,10 +180,14 @@ const Vertical = (): JSX.Element => {
             </Scrollbars>
             <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }}>
                 <div style={{ margin: "auto" }}>
-                    <ButtonGroup orientation="vertical" color="primary" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small">↑</Button>
+                    <ButtonGroup orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
+                        <Button size="small">
+                            <ExpandLess />
+                        </Button>
                         <span>font-size</span>
-                        <Button size="small">↓</Button>
+                        <Button size="small">
+                            <ExpandMore />
+                        </Button>
                     </ButtonGroup>
                 </div>
             </AppBar>
