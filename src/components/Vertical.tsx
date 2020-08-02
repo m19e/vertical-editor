@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
+import { AppBar } from "@material-ui/core";
 import "./Vertical.css";
 
 const Vertical = (): JSX.Element => {
@@ -176,6 +177,9 @@ const Vertical = (): JSX.Element => {
                     <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
                 </div>
             </Scrollbars>
+            <AppBar position="fixed" color="primary" style={{ top: "auto", bottom: 0 }}>
+                <div style={{ padding: "8px", margin: "auto" }}>some button aria</div>
+            </AppBar>
         </div>
     );
 };
