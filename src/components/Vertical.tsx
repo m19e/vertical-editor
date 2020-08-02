@@ -180,9 +180,9 @@ const Vertical = (): JSX.Element => {
             <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }}>
                 <div style={{ margin: "auto" }}>
                     <ButtonGroup orientation="vertical" color="primary" aria-label="vertical contained primary button group" variant="text">
-                        <Button>↑</Button>
+                        <Button size="small">↑</Button>
                         <span>font-size</span>
-                        <Button>↓</Button>
+                        <Button size="small">↓</Button>
                     </ButtonGroup>
                 </div>
             </AppBar>
