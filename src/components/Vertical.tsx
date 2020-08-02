@@ -179,7 +179,7 @@ const Vertical = (): JSX.Element => {
                     <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
                 </div>
             </Scrollbars>
-            <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }}>
+            <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
                 <div style={{ margin: "auto" }}>
                     <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
                         <Button size="small" variant="text">
