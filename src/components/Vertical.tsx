@@ -64,7 +64,8 @@ const Vertical = (): JSX.Element => {
             setText(editor.getCurrentContent().getPlainText());
             saveDraft(editor);
         }
-        setTitle(editor.getCurrentContent().getBlockMap().first().getText().trim());
+        const firstBlockText = editor.getCurrentContent().getBlockMap().first().getText().trim();
+        setTitle(firstBlockText || "無題");
         setEditorState(editor);
     };
 
