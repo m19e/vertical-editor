@@ -14,3 +14,34 @@
 .ur {
     text-orientation: upright;
 }
+
+.control {
+    visibility: hidden;
+}
+
+.bgroup {
+    margin: 0 16px;
+}
+
+.bgroup:hover .control {
+    visibility: visible;
+    animation-duration: 0.3s;
+    animation-name: fade-in;
+}
+
+@keyframes fade-in {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    50% {
+        visibility: visible;
+        opacity: 0.5;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}

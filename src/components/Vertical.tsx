@@ -180,13 +180,31 @@ const Vertical = (): JSX.Element => {
             </Scrollbars>
             <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }}>
                 <div style={{ margin: "auto" }}>
-                    <ButtonGroup orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small">
-                            <ExpandLess />
+                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
+                        <Button size="small" variant="text">
+                            <ExpandLess className="control" />
                         </Button>
-                        <span>font-size</span>
-                        <Button size="small">
-                            <ExpandMore />
+                        <span style={{ textAlign: "center" }}>行間 {2}</span>
+                        <Button size="small" variant="text">
+                            <ExpandMore className="control" />
+                        </Button>
+                    </ButtonGroup>
+                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
+                        <Button size="small" variant="text">
+                            <ExpandLess className="control" />
+                        </Button>
+                        <span style={{ textAlign: "center" }}>文字サイズ {24}</span>
+                        <Button size="small" variant="text">
+                            <ExpandMore className="control" />
+                        </Button>
+                    </ButtonGroup>
+                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
+                        <Button size="small" variant="text">
+                            <ExpandLess className="control" />
+                        </Button>
+                        <span style={{ textAlign: "center" }}>字数 {31}</span>
+                        <Button size="small" variant="text">
+                            <ExpandMore className="control" />
                         </Button>
                     </ButtonGroup>
                 </div>
