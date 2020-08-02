@@ -10,6 +10,7 @@ const Vertical = (): JSX.Element => {
     const [title, setTitle] = useState("");
     const [height, setHeight] = useState(20);
     const [text, setText] = useState("");
+    const [fontSize, setFontSize] = useState(24);
 
     useEffect(() => {
         const firstBlockKey = editorState.getSelection().getAnchorKey();
