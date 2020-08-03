@@ -175,7 +175,7 @@ const Vertical = (): JSX.Element => {
     return (
         <div className="wrapper">
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
-                <div className="tate" style={{ fontSize: fontSize + "px" }}>
+                <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
                     <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
                 </div>
             </Scrollbars>
