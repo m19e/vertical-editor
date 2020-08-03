@@ -13,25 +13,6 @@ const Vertical = (): JSX.Element => {
     const [fontSize, setFontSize] = useState(24);
 
     useEffect(() => {
-        const firstBlockKey = editorState.getSelection().getAnchorKey();
-        const firstBlockElement = document.querySelector(`span[data-offset-key="${firstBlockKey}-0-0"]`);
-
-        if (firstBlockElement) {
-            const blankBlock = firstBlockElement.removeChild(firstBlockElement.firstChild as Node);
-            firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="char" data-text="true">${"Ｖ"}</span>`);
-            const target = document.getElementById("char");
-            const charHeight = target?.getBoundingClientRect().height || 16;
-            firstBlockElement.insertAdjacentHTML("afterbegin", `<span id="line" data-text="true">${"Ｖ".repeat(200)}</span>`);
-            const lineHeight = document.getElementById("line")?.getBoundingClientRect().height || 816;
-            const h = Math.floor(lineHeight / charHeight);
-            setHeight(h);
-            console.log(`${lineHeight} / ${charHeight} = ${h}`);
-            while (firstBlockElement.firstChild) {
-                firstBlockElement.firstChild.remove();
-            }
-            firstBlockElement.appendChild(blankBlock);
-        }
-
         const loadDraft = localStorage.getItem("myDraft");
         if (loadDraft) {
             const data = JSON.parse(loadDraft);
