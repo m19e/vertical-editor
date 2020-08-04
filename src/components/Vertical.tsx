@@ -31,9 +31,7 @@ const Vertical = (): JSX.Element => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            if (!isSaved) {
-                saveDraft(editorState);
-            }
+            if (!isSaved) saveDraft(editorState);
         }, 5000);
         return () => clearTimeout(timer);
     }, [isSaved]);
