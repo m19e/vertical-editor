@@ -168,7 +168,7 @@ const Vertical = (): JSX.Element => {
                         <Button size="small" variant="text">
                             <ExpandLess className="control" />
                         </Button>
-                        <span style={{ textAlign: "center" }}>行間 {2}</span>
+                        <span>行間 {2}</span>
                         <Button size="small" variant="text">
                             <ExpandMore className="control" />
                         </Button>
@@ -183,7 +183,7 @@ const Vertical = (): JSX.Element => {
                                 <ExpandLess className="control" />
                             </Button>
                         )}
-                        <span style={{ textAlign: "center" }}>文字サイズ {fontSize}</span>
+                        <span>文字サイズ {fontSize}</span>
                         {fontSize > 8 ? (
                             <Button size="small" variant="text" onClick={() => setFontSize(fontSize - 4)}>
                                 <ExpandMore className="control" />
@@ -198,7 +198,7 @@ const Vertical = (): JSX.Element => {
                         <Button size="small" variant="text" onClick={() => setHeight(height + 2)}>
                             <ExpandLess className="control" />
                         </Button>
-                        <span style={{ textAlign: "center" }}>字数 {height}</span>
+                        <span>字数 {height}</span>
                         <Button size="small" variant="text" onClick={() => setHeight(height - 2)}>
                             <ExpandMore className="control" />
                         </Button>
