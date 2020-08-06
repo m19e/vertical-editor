@@ -58,6 +58,9 @@
     animation-fill-mode: backwards;
 
     opacity: 0;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .appbar:hover {
