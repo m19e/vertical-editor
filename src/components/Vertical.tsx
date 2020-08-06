@@ -9,7 +9,7 @@ const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
-    const [height, setHeight] = useState(32);
+    const [height, setHeight] = useState(30);
     const [fontSize, setFontSize] = useState(24);
 
     useEffect(() => {
