@@ -69,21 +69,21 @@
 @keyframes in {
     0% {
         opacity: 0;
-        transform: translateY(10px);
+        visibility: hidden;
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        visibility: visible;
     }
 }
 
 @keyframes out {
     0% {
         opacity: 1;
-        transform: translateY(0);
+        visibility: visible;
     }
     100% {
         opacity: 0;
-        transform: translateY(10px);
+        visibility: hidden;
     }
 }
