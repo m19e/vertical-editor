@@ -174,25 +174,13 @@ const Vertical = (): JSX.Element => {
                         </Button>
                     </ButtonGroup>
                     <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        {fontSize < 50 ? (
-                            <Button size="small" variant="text" onClick={() => setFontSize(fontSize + 4)}>
-                                <ExpandLess className="control" />
-                            </Button>
-                        ) : (
-                            <Button size="small" variant="text" disabled={true}>
-                                <ExpandLess className="control" />
-                            </Button>
-                        )}
+                        <Button size="small" variant="text" onClick={() => setFontSize(fontSize + 4)} disabled={fontSize >= 50}>
+                            <ExpandLess className="control" />
+                        </Button>
                         <span>文字サイズ {fontSize}</span>
-                        {fontSize > 8 ? (
-                            <Button size="small" variant="text" onClick={() => setFontSize(fontSize - 4)}>
-                                <ExpandMore className="control" />
-                            </Button>
-                        ) : (
-                            <Button size="small" variant="text" disabled={true}>
-                                <ExpandMore className="control" />
-                            </Button>
-                        )}
+                        <Button size="small" variant="text" onClick={() => setFontSize(fontSize - 4)} disabled={fontSize <= 8}>
+                            <ExpandMore className="control" />
+                        </Button>
                     </ButtonGroup>
                     <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
                         <Button size="small" variant="text" onClick={() => setHeight(height + 2)}>
