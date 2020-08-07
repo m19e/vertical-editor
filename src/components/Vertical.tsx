@@ -165,7 +165,7 @@ const Vertical = (): JSX.Element => {
                 </Container>
             </Scrollbars>
             <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
-                <div style={{ margin: "auto" }}>
+                <div style={{ margin: "auto", padding: "8px" }}>
                     <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
                         <Button size="small" variant="text">
                             <ExpandLess className="control" />
