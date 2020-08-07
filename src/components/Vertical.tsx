@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
-import { AppBar, Button, ButtonGroup } from "@material-ui/core";
+import { AppBar, Button, ButtonGroup, Container } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
 
@@ -158,9 +158,11 @@ const Vertical = (): JSX.Element => {
     return (
         <div className="wrapper">
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
-                <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
-                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
-                </div>
+                <Container style={{ position: "absolute", bottom: "160px" }}>
+                    <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
+                        <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
+                    </div>
+                </Container>
             </Scrollbars>
             <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
                 <div style={{ margin: "auto" }}>
