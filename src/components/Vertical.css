@@ -51,4 +51,12 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+
+    opacity: 0;
+}
+
+.appbar:hover {
+    opacity: 1;
+    animation-duration: 0.5s;
+    animation-name: fade-in;
 }
