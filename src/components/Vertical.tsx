@@ -202,11 +202,11 @@ const Vertical = (): JSX.Element => {
                             aria-label="vertical contained primary button group"
                             variant="text"
                         >
-                            <Button size="small" variant="text" onClick={() => setHeight(height + 1)}>
+                            <Button size="small" variant="text" onClick={() => setHeight(height + 1)} disabled={height >= 50}>
                                 <ExpandLess className="control" />
                             </Button>
                             <span>字数 {height}</span>
-                            <Button size="small" variant="text" onClick={() => setHeight(height - 1)}>
+                            <Button size="small" variant="text" onClick={() => setHeight(height - 1)} disabled={height <= 3}>
                                 <ExpandMore className="control" />
                             </Button>
                         </ButtonGroup>
