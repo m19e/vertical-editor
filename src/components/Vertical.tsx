@@ -157,44 +157,62 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="wrapper">
-            <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
-                <Container style={{ position: "absolute", bottom: "160px" }}>
-                    <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
-                        <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
-                    </div>
-                </Container>
-            </Scrollbars>
-            <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
-                <div style={{ margin: "auto", padding: "8px" }}>
-                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small" variant="text">
-                            <ExpandLess className="control" />
-                        </Button>
-                        <span>行間 {2}</span>
-                        <Button size="small" variant="text">
-                            <ExpandMore className="control" />
-                        </Button>
-                    </ButtonGroup>
-                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small" variant="text" onClick={() => setFontSize(fontSize + 4)} disabled={fontSize >= 50}>
-                            <ExpandLess className="control" />
-                        </Button>
-                        <span>文字サイズ {fontSize}</span>
-                        <Button size="small" variant="text" onClick={() => setFontSize(fontSize - 4)} disabled={fontSize <= 8}>
-                            <ExpandMore className="control" />
-                        </Button>
-                    </ButtonGroup>
-                    <ButtonGroup className="bgroup" orientation="vertical" color="inherit" aria-label="vertical contained primary button group" variant="text">
-                        <Button size="small" variant="text" onClick={() => setHeight(height + 2)}>
-                            <ExpandLess className="control" />
-                        </Button>
-                        <span>字数 {height}</span>
-                        <Button size="small" variant="text" onClick={() => setHeight(height - 2)}>
-                            <ExpandMore className="control" />
-                        </Button>
-                    </ButtonGroup>
+            <Container style={{ position: "absolute", bottom: "15%" }} maxWidth={false}>
+                <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px", maxHeight: "80%" }}>
+                    {/* <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}> */}
+                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
+                    {/* </Scrollbars> */}
                 </div>
-            </AppBar>
+                <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
+                    <div style={{ margin: "auto", padding: "8px" }}>
+                        <ButtonGroup
+                            className="bgroup"
+                            orientation="vertical"
+                            color="inherit"
+                            aria-label="vertical contained primary button group"
+                            variant="text"
+                        >
+                            <Button size="small" variant="text">
+                                <ExpandLess className="control" />
+                            </Button>
+                            <span>行間 {2}</span>
+                            <Button size="small" variant="text">
+                                <ExpandMore className="control" />
+                            </Button>
+                        </ButtonGroup>
+                        <ButtonGroup
+                            className="bgroup"
+                            orientation="vertical"
+                            color="inherit"
+                            aria-label="vertical contained primary button group"
+                            variant="text"
+                        >
+                            <Button size="small" variant="text" onClick={() => setFontSize(fontSize + 4)} disabled={fontSize >= 50}>
+                                <ExpandLess className="control" />
+                            </Button>
+                            <span>文字サイズ {fontSize}</span>
+                            <Button size="small" variant="text" onClick={() => setFontSize(fontSize - 4)} disabled={fontSize <= 8}>
+                                <ExpandMore className="control" />
+                            </Button>
+                        </ButtonGroup>
+                        <ButtonGroup
+                            className="bgroup"
+                            orientation="vertical"
+                            color="inherit"
+                            aria-label="vertical contained primary button group"
+                            variant="text"
+                        >
+                            <Button size="small" variant="text" onClick={() => setHeight(height + 1)}>
+                                <ExpandLess className="control" />
+                            </Button>
+                            <span>字数 {height}</span>
+                            <Button size="small" variant="text" onClick={() => setHeight(height - 1)}>
+                                <ExpandMore className="control" />
+                            </Button>
+                        </ButtonGroup>
+                    </div>
+                </AppBar>
+            </Container>
         </div>
     );
 };
