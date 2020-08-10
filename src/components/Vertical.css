@@ -10,13 +10,6 @@
     writing-mode: vertical-rl;
 }
 
-.tate span {
-    word-break: break-all;
-    line-break: loose;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
 .ur {
     text-orientation: upright;
 }
