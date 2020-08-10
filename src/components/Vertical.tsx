@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
-import { AppBar, Button, ButtonGroup, Container } from "@material-ui/core";
+import { AppBar, Button, ButtonGroup, Box } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
 
@@ -157,12 +157,15 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="wrapper">
-            <Container style={{ position: "absolute", bottom: "15%" }} maxWidth={false}>
-                <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px", maxHeight: "80%" }}>
-                    {/* <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}> */}
-                    <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
-                    {/* </Scrollbars> */}
-                </div>
+            <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} style={{ position: "absolute", bottom: "13%", height: "85%", width: "95%" }}>
+                {/* <Container style={{ height: "100%", margin: "auto" }}> */}
+                <Box display="flex">
+                    <Box m="auto">
+                        <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
+                            <Editor editorState={editorState} onChange={onEditorChange} keyBindingFn={handleKey} />
+                        </div>
+                    </Box>
+                </Box>
                 <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
                     <div style={{ margin: "auto", padding: "8px" }}>
                         <ButtonGroup
@@ -212,7 +215,8 @@ const Vertical = (): JSX.Element => {
                         </ButtonGroup>
                     </div>
                 </AppBar>
-            </Container>
+                {/* </Container> */}
+            </Scrollbars>
         </div>
     );
 };
