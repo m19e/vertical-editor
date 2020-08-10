@@ -8,6 +8,10 @@
     text-align: justify;
     margin: auto;
     writing-mode: vertical-rl;
+
+    max-height: 100%;
+    position: absolute;
+    bottom: 8px;
 }
 
 .ur {
