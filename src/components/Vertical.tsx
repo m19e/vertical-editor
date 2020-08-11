@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup, Box } from "@material-ui/core";
@@ -11,6 +11,8 @@ const Vertical = (): JSX.Element => {
     const [title, setTitle] = useState("");
     const [height, setHeight] = useState(30);
     const [fontSize, setFontSize] = useState(24);
+
+    const scrollbars: React.RefObject<Scrollbars> = createRef();
 
     useEffect(() => {
         const loadDraft = localStorage.getItem("myDraft");
@@ -155,9 +157,21 @@ const Vertical = (): JSX.Element => {
         return getDefaultKeyBinding(e);
     };
 
+    const onMouseWheel = (e: React.WheelEvent<Scrollbars>) => {
+        const currentScrollDelta = scrollbars.current?.getScrollLeft() || 0;
+        scrollbars.current?.scrollLeft(currentScrollDelta - e.deltaY);
+    };
+
     return (
         <div className="wrapper">
-            <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} style={{ position: "absolute", bottom: "13%", height: "85%", width: "95%" }}>
+            <Scrollbars
+                autoHide
+                autoHideTimeout={1000}
+                autoHideDuration={500}
+                ref={scrollbars}
+                onWheel={onMouseWheel}
+                style={{ position: "absolute", bottom: "13%", height: "85%", width: "95%" }}
+            >
                 {/* <Container style={{ height: "100%", margin: "auto" }}> */}
                 <Box display="flex">
                     <Box m="auto">
