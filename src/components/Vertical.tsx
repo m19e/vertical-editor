@@ -36,7 +36,7 @@ const Vertical = (): JSX.Element => {
             if (!isSaved) saveDraft(editorState);
         }, 5000);
         return () => clearTimeout(timer);
-    }, [isSaved]);
+    }, [editorState]);
 
     const saveDraft = (editor: EditorState) => {
         setIsSaved(true);
