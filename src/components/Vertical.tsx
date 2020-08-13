@@ -212,12 +212,10 @@ const Vertical = (): JSX.Element => {
                             aria-label="vertical contained primary button group"
                             variant="text"
                         >
-                            <Button size="small" variant="text">
-                                <ExpandLess className="control" />
-                            </Button>
-                            <span>行間 {2}</span>
-                            <Button size="small" variant="text">
-                                <ExpandMore className="control" />
+                            <Button size="small" variant="text" disabled></Button>
+                            <span className={classes.textCenter}>{isMincho ? "明朝体" : "ゴシック体"}</span>
+                            <Button size="small" variant="text" onClick={() => setIsMincho(!isMincho)} className="control">
+                                {!isMincho ? "明朝体" : "ゴシック体"}
                             </Button>
                         </ButtonGroup>
                         <ButtonGroup
