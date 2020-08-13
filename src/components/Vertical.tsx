@@ -19,6 +19,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
                 isMincho
                     ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman, serif`
                     : `"游ゴシック体", "Yu Gothic", YuGothic, Arial, sans-serif`,
+            fontWeight: ({ isMincho }) => (isMincho ? "normal" : 500),
         },
         textCenter: {
             textAlign: "center",
