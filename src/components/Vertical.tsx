@@ -15,7 +15,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
         wrapper: {
             width: "100%",
             height: "100%",
-            fontFamily: ({ isMincho }) => (isMincho ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman` : ""),
+            fontFamily: ({ isMincho }) => (isMincho ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman, serif` : ""),
         },
         textCenter: {
             textAlign: "center",
