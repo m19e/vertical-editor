@@ -1,9 +1,19 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, CSSProperties } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup, Box } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
+
+
+const styles: { [key: string]: CSSProperties } = {
+    scroll: {
+        position: "absolute",
+        bottom: "13%",
+        height: "85%",
+        width: "95%",
+    },
+};
 
 const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
@@ -164,14 +174,7 @@ const Vertical = (): JSX.Element => {
 
     return (
         <div className="wrapper">
-            <Scrollbars
-                autoHide
-                autoHideTimeout={1000}
-                autoHideDuration={500}
-                ref={scrollbars}
-                onWheel={onMouseWheel}
-                style={{ position: "absolute", bottom: "13%", height: "85%", width: "95%" }}
-            >
+            <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} ref={scrollbars} onWheel={onMouseWheel} style={styles.scroll}>
                 {/* <Container style={{ height: "100%", margin: "auto" }}> */}
                 <Box display="flex">
                     <Box m="auto">
