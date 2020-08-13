@@ -175,7 +175,6 @@ const Vertical = (): JSX.Element => {
     return (
         <div className="wrapper">
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} ref={scrollbars} onWheel={onMouseWheel} style={styles.scroll}>
-                {/* <Container style={{ height: "100%", margin: "auto" }}> */}
                 <Box display="flex">
                     <Box m="auto">
                         <div className="tate" style={{ fontSize: fontSize + "px", height: height * fontSize + "px" }}>
@@ -232,7 +231,6 @@ const Vertical = (): JSX.Element => {
                         </ButtonGroup>
                     </div>
                 </AppBar>
-                {/* </Container> */}
             </Scrollbars>
         </div>
     );
