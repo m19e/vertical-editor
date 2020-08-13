@@ -2,9 +2,27 @@ import React, { useState, useEffect, createRef, CSSProperties } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup, Box } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
 
+interface StylesProps {
+    isMincho: boolean;
+}
+
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
+    createStyles({
+        wrapper: {
+            width: "100%",
+            height: "100%",
+            fontFamily: ({ isMincho }) =>
+                isMincho ? `"游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif` : "",
+        },
+        textCenter: {
+            textAlign: "center",
+        },
+    })
+);
 
 const styles: { [key: string]: CSSProperties } = {
     scroll: {
@@ -23,6 +41,9 @@ const Vertical = (): JSX.Element => {
     const [fontSize, setFontSize] = useState(24);
 
     const scrollbars: React.RefObject<Scrollbars> = createRef();
+
+    const [isMincho, setIsMincho] = useState(true);
+    const classes = useStyles({ isMincho });
 
     useEffect(() => {
         const loadDraft = localStorage.getItem("myDraft");
@@ -173,7 +194,7 @@ const Vertical = (): JSX.Element => {
     };
 
     return (
-        <div className="wrapper">
+        <div className={classes.wrapper}>
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} ref={scrollbars} onWheel={onMouseWheel} style={styles.scroll}>
                 <Box display="flex">
                     <Box m="auto">
