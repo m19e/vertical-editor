@@ -12,7 +12,7 @@ interface StylesProps {
 
 const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
     createStyles({
-        wrapper: {
+        root: {
             width: "100%",
             height: "100%",
             fontFamily: ({ isMincho }) =>
@@ -197,7 +197,7 @@ const Vertical = (): JSX.Element => {
     };
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.root}>
             <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500} ref={scrollbars} onWheel={onMouseWheel} style={styles.scroll}>
                 <Box display="flex">
                     <Box m="auto">
