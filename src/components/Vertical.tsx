@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef, CSSProperties } from "react";
 import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
-import { AppBar, Button, ButtonGroup, Box } from "@material-ui/core";
+import { AppBar, Button, ButtonGroup, Box, Fade } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "./Vertical.css";
@@ -46,6 +46,7 @@ const Vertical = (): JSX.Element => {
     const scrollbars: React.RefObject<Scrollbars> = createRef();
 
     const [isMincho, setIsMincho] = useState(true);
+    const [open, setOpen] = useState(false);
     const classes = useStyles({ isMincho });
 
     useEffect(() => {
@@ -207,7 +208,7 @@ const Vertical = (): JSX.Element => {
                     </Box>
                 </Box>
                 <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
-                    <div style={{ margin: "auto", padding: "8px" }}>
+                    <div style={{ margin: "auto", padding: "8px" }} onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
                         <ButtonGroup
                             className="bgroup"
                             orientation="vertical"
@@ -217,19 +218,23 @@ const Vertical = (): JSX.Element => {
                         >
                             <Button size="small" variant="text" disabled></Button>
                             <span className={classes.textCenter}>{isMincho ? "明朝体" : "ゴシック体"}</span>
-                            <Button
-                                size="small"
-                                variant="text"
-                                onClick={() => setIsMincho(!isMincho)}
-                                className="control"
-                                style={{
-                                    fontFamily: !isMincho
-                                        ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman, serif`
-                                        : `"游ゴシック体", "Yu Gothic", YuGothic, Arial, sans-serif`,
-                                }}
-                            >
-                                {!isMincho ? "明朝体" : "ゴシック体"}
-                            </Button>
+                            <Fade in={open} timeout={700}>
+                                <Button
+                                    size="small"
+                                    variant="text"
+                                    onClick={() => setIsMincho(!isMincho)}
+                                    className="control"
+                                    style={{
+                                        fontFamily: !isMincho
+                                            ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman, serif`
+                                            : `"游ゴシック体", "Yu Gothic", YuGothic, Arial, sans-serif`,
+                                        fontWeight: !isMincho ? "normal" : 500,
+                                        padding: "0 8px",
+                                    }}
+                                >
+                                    {!isMincho ? "明朝体" : "ゴシック体"}
+                                </Button>
+                            </Fade>
                         </ButtonGroup>
                         <ButtonGroup
                             className="bgroup"
