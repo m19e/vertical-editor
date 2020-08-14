@@ -217,7 +217,17 @@ const Vertical = (): JSX.Element => {
                         >
                             <Button size="small" variant="text" disabled></Button>
                             <span className={classes.textCenter}>{isMincho ? "明朝体" : "ゴシック体"}</span>
-                            <Button size="small" variant="text" onClick={() => setIsMincho(!isMincho)} className="control">
+                            <Button
+                                size="small"
+                                variant="text"
+                                onClick={() => setIsMincho(!isMincho)}
+                                className="control"
+                                style={{
+                                    fontFamily: !isMincho
+                                        ? `"游明朝体", "Yu Mincho", YuMincho, "Times New Roman", TimesNewRoman, serif`
+                                        : `"游ゴシック体", "Yu Gothic", YuGothic, Arial, sans-serif`,
+                                }}
+                            >
                                 {!isMincho ? "明朝体" : "ゴシック体"}
                             </Button>
                         </ButtonGroup>
