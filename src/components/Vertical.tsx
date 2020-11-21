@@ -61,7 +61,7 @@ const download = (content: string) => {
 };
 
 const Vertical = (): JSX.Element => {
-    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromText("本文を入力")));
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
     const [format, setFormat, remove] = useLocalStorage("myFormat", JSON.stringify(initialFormat));
@@ -85,6 +85,8 @@ const Vertical = (): JSX.Element => {
             if (t) {
                 setText(t);
                 onEditorChange(e);
+            } else {
+                onEditorChange(EditorState.createWithContent(ContentState.createFromText("本文を入力")));
             }
         }
     }, []);
