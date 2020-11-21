@@ -36,6 +36,17 @@ const styles: { [key: string]: CSSProperties } = {
     },
 };
 
+const download = (content: string) => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([content], { type: "text/plain" }));
+    a.download = `draft-${Date.now()}.txt`;
+
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+};
+
 const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromText("本文を入力")));
     const [text, setText] = useState("");
