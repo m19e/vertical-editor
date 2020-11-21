@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createRef, CSSProperties } from "react";
-import { Editor, EditorState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
+import { Editor, EditorState, ContentState, getDefaultKeyBinding, convertFromRaw, convertToRaw } from "draft-js";
 import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup, Box, Fade } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -37,7 +37,8 @@ const styles: { [key: string]: CSSProperties } = {
 };
 
 const Vertical = (): JSX.Element => {
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+    // const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromText("ここに本文を入力")));
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
     const [height, setHeight] = useState(30);
@@ -56,8 +57,10 @@ const Vertical = (): JSX.Element => {
             const e = EditorState.createWithContent(convertFromRaw(JSON.parse(data.body)));
             const t = e.getCurrentContent().getPlainText();
             setTitle(data.title);
-            setText(t);
-            onEditorChange(e);
+            if (t) {
+                setText(t);
+                onEditorChange(e);
+            }
         }
     }, []);
 
