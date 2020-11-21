@@ -66,7 +66,7 @@ const Vertical = (): JSX.Element => {
 
     const [isSaved, setIsSaved] = useState(true);
     useEffect(() => {
-        document.title = (isSaved ? "" : "*") + title;
+        document.title = (isSaved ? "" : "*") + title + " | Clara Editor";
     }, [title, isSaved]);
 
     useEffect(() => {
