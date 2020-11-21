@@ -37,7 +37,6 @@ const styles: { [key: string]: CSSProperties } = {
 };
 
 const Vertical = (): JSX.Element => {
-    // const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromText("本文を入力")));
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
