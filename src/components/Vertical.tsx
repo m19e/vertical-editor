@@ -4,11 +4,24 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { AppBar, Button, ButtonGroup, Box, Fade } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { useLocalStorage } from "react-use";
 import "./Vertical.css";
 
 interface StylesProps {
     isMincho: boolean;
 }
+
+interface Format {
+    isMincho: boolean;
+    fontSize: number;
+    charCount: number;
+}
+
+const initialFormat: Format = {
+    isMincho: true,
+    fontSize: 24,
+    charCount: 30,
+};
 
 const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
     createStyles({
@@ -51,12 +64,14 @@ const Vertical = (): JSX.Element => {
     const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromText("本文を入力")));
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
-    const [height, setHeight] = useState(30);
-    const [fontSize, setFontSize] = useState(24);
+    const [format, setFormat, remove] = useLocalStorage("myFormat", JSON.stringify(initialFormat));
+    const formatObj: Format = JSON.parse(format || JSON.stringify(initialFormat));
+    const [height, setHeight] = useState(formatObj.charCount);
+    const [fontSize, setFontSize] = useState(formatObj.fontSize);
 
     const scrollbars: React.RefObject<Scrollbars> = createRef();
 
-    const [isMincho, setIsMincho] = useState(true);
+    const [isMincho, setIsMincho] = useState(formatObj.isMincho);
     const [open, setOpen] = useState(false);
     const classes = useStyles({ isMincho });
 
@@ -85,6 +100,10 @@ const Vertical = (): JSX.Element => {
         }, 5000);
         return () => clearTimeout(timer);
     }, [editorState]);
+
+    useEffect(() => {
+        setFormat(JSON.stringify({ isMincho: isMincho, fontSize: fontSize, charCount: height }));
+    }, [isMincho, fontSize, height]);
 
     const saveDraft = (editor: EditorState) => {
         setIsSaved(true);
