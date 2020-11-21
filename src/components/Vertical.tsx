@@ -132,6 +132,7 @@ const Vertical = (): JSX.Element => {
         if (e.ctrlKey && e.key === "s") {
             e.preventDefault();
             saveDraft(editorState);
+            download(editorState.getCurrentContent().getPlainText());
             return null;
         }
 
