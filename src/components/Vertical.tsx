@@ -211,7 +211,7 @@ const Vertical = (): JSX.Element => {
                     </Box>
                 </Box>
                 <AppBar position="fixed" color="inherit" style={{ top: "auto", bottom: 0 }} className="appbar">
-                    <div style={{ margin: "auto", padding: "8px" }} onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                    <div style={{ margin: "auto", padding: "8px" }} onMouseOver={() => setOpen(true)}>
                         <ButtonGroup
                             className="bgroup"
                             orientation="vertical"
